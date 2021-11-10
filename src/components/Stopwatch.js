@@ -15,11 +15,11 @@ function Stopwatch() {
     clearInterval(interv);
     setReset(false);
     if (isTimerActive) {
-      onStartlCick();
+        onStartClick();
     }
   }, [isReset]);
 
-  const onStartlCick = () => {
+  const onStartClick = () => {
     run();
     setTimerActive(true);
     setInterv(setInterval(run, 10));
@@ -77,7 +77,7 @@ function Stopwatch() {
             onWaitClick={onWaitClick}
             onResetClick={onResetClick}
             onStopClick={onStopClick}
-            onStartlCick={onStartlCick}
+            onStartClick={onStartClick}
           />
         </div>
       </div>

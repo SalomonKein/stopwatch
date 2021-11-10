@@ -3,10 +3,10 @@ import React from "react";
 function BtnComponent(props) {
   return (
     <div>
-      {props.isTimerActive === false ? (
+      {!props.isTimerActive ? (
         <button
           className="stopwatch-btn stopwatch-btn-start"
-          onClick={props.onStartlCick}
+          onClick={props.onStartClick}
         >
           Start
         </button>
