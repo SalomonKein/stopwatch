@@ -8,7 +8,7 @@ import {takeUntil} from "rxjs/operators";
 let lastClick = 0;
 
 function Stopwatch() {
-  const [time, setTime] = useState({ms: 0, s: 50, m: 59, h: 0});
+  const [time, setTime] = useState({ms: 0, s: 0, m: 0, h: 0});
   const [isTimerActive, setTimerActive] = useState(false);
   const [status, setStatus] = useState("stop");
 
