@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import DisplayComponent from "./DisplayComponent";
 import BtnComponent from "./BtnComponent";
 import "../App.css";
+import { interval, from, timer } from "rxjs";
+import { map, filter, mergeMap, delay, takeUntil } from "rxjs/operators"
+
 
 let lastClick = 0;
 
@@ -11,13 +14,26 @@ function Stopwatch() {
   const [isTimerActive, setTimerActive] = useState(false);
   const [isReset, setReset] = useState(false);
 
+  const [curentNumber, setCurentNumber] = useState(0)
+
+  let arrTime = Object.values(time).reverse()
+  let squeredNumbers
+
   useEffect(() => {
     clearInterval(interv);
     setReset(false);
     if (isTimerActive) {
         onStartClick();
     }
-  }, [isReset]);
+    let numbersObservable = from(arrTime);
+    squeredNumbers = numbersObservable.pipe(  
+    map(val =>console.log(val, "val"))) 
+    let subscription = squeredNumbers.subscribe(result => {
+      setCurentNumber(result)
+    })
+    
+    return () => subscription.unsubscribe
+  }, [isReset, squeredNumbers]);
 
   const onStartClick = () => {
     run();
@@ -67,11 +83,28 @@ function Stopwatch() {
     lastClick = t;
   };
 
+  
+   
+  
+
+  
+  //   mergeMap(val => from([val]).pipe(delay(1000 * val))),
+    // map(val => val * val))
+
+    // const source = timer(1000, 1000);
+    // source.subscribe(data => console.log(data));
+
+    // timer(0, 1000).subscribe(n => console.log('timer', n));
+// interval(1000).subscribe(n => console.log('interval', n));
+
+
   return (
     <div className="main-section">
       <div className="clock-holder">
         <div className="stopwatch">
-          <DisplayComponent time={time} />
+          <DisplayComponent time={time} 
+          // curentNumber={curentNumber} 
+          />
           <BtnComponent
             isTimerActive={isTimerActive}
             onWaitClick={onWaitClick}
